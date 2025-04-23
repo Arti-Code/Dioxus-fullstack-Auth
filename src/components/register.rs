@@ -11,8 +11,8 @@ pub fn Register() -> Element {
 
   rsx!(
     div { class: "screen flex justify-center items-center bg-slate-50",
-      div { class: "border-solid border-2 border-slate-100 rounded-lg px-3 py-5 w-1/4",
-        div { class: "text-center text-3xl", "Register" }
+      div { class: "border-solid border-2 border-slate-500 rounded-lg px-3 py-5 w-2/4",
+        div { class: "text-center text-slate-700 text-3xl", "Register" }
         if !error_msg.to_string().is_empty() {
           div { class: "bg-rose-100 text-rose-600 py-1 px-2 rounded-lg my-3",
             " {error_msg}"
