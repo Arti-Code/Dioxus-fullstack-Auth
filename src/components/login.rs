@@ -19,7 +19,7 @@ pub fn Login() -> Element {
           }
         }
         div { class: "my-5",
-          div { class: "text-lg", "username: " }
+          div { class: "text-lg text-slate-700", "username: " }
           input {
             class: "w-full rounded-lg px-2 py-1",
             r#type: "text",
@@ -28,7 +28,7 @@ pub fn Login() -> Element {
           }
         }
         div { class: "my-5",
-          div { class: "text-lg", "password: " }
+          div { class: "text-lg text-slate-700", "password: " }
           input {
             class: "w-full rounded-lg px-2 py-1",
             r#type: "password",

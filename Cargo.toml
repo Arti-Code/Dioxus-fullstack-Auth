@@ -22,7 +22,7 @@ async-trait = {version = "0.1.87", optional = true  }
 anyhow = {version = "1.0.97", optional = true }
 
 [features]
-default = []
+default = ["server"]
 web = ["dioxus/web"]
 desktop = ["dioxus/desktop"]
 mobile = ["dioxus/mobile"]

@@ -21,14 +21,14 @@ pub fn Register() -> Element {
         div { class: "my-5",
           div { class: "text-lg", "username: " }
           input {
-            class: "w-full rounded-lg px-2 py-1",
+            class: "w-full rounded-lg px-2 py-1 text-slate-700",
             r#type: "text",
             value: username,
             oninput: move |e| username.set(e.value()),
           }
         }
         div { class: "my-5",
-          div { class: "text-lg", "password: " }
+          div { class: "text-lg text-slate-700", "password: " }
           input {
             class: "w-full rounded-lg px-2 py-1",
             r#type: "password",
