@@ -2,21 +2,15 @@
 
 use dioxus::prelude::*;
 
-#[cfg(feature="server")]
-use backend::axum_server::launch_server;
-
-mod backend;
 mod components;
-use components::{register::Register, login::Login, user::User};
+mod request;
+mod user;
+
+use components::{login::Login, navbar::Navbar, register::Register, user::User};
 
 fn main() {
     #[cfg(feature = "web")]
     LaunchBuilder::web().launch(App);
-
-    #[cfg(feature="server")]
-    tokio::runtime::Runtime::new().unwrap().block_on(async {
-        launch_server(App).await;
-    });
 }
 
 #[component]
@@ -24,7 +18,9 @@ fn App() -> Element {
     rsx!(
         document::Stylesheet { href: asset!("assets/main.css") }
         document::Stylesheet { href: asset!("assets/tailwind.css") }
+        Navbar {}
         Router::<Route> {}
+        //document::Script { src: asset!("node_modules/flyonui/flyonui.js") }
     )
 }
 
@@ -38,9 +34,9 @@ fn Home() -> Element {
 #[derive(Clone, PartialEq, Routable)]
 pub enum Route {
     #[route("/")]
-    Home {},
-    #[route("/register")]
+    //Home {},
     Register {},
+    //#[route("/register")]
     #[route("/login")]
     Login{},
     #[route("/user")]

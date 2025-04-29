@@ -1,32 +1,29 @@
 [package]
-name = "auth"
-version = "0.1.0"
+name = "webapp"
+version = "0.2.0"
 authors = ["mike"]
 edition = "2021"
 
 # See more keys and their definitions at https://doc.rust-lang.org/cargo/reference/manifest.html
 
 [dependencies]
-dioxus = { version = "0.6.2", features = ["router", "fullstack"  ] }
+dioxus = { version = "0.6.2", features = ["router"] }
+#sqlx = { version="0.7.0", features = [ "sqlite", "runtime-tokio", "tls-native-tls" ], optional = true }
+reqwest = { version = "0.12", features = ["json"] }
+anyhow = { version = "1.0.98"}
+serde = { version = "1.0", features = ["derive"] }
 
-tokio = { version = "1.20.0", features = ["full"], optional = true }
+[dependencies.dioxus-free-icons] 
+version = "0.9"
+features = ["material-design-icons-action", "material-design-icons-home", "material-design-icons-social", "material-design-icons-navigation"]
 
-sqlx = { version="0.7.0", features = [ "sqlite", "runtime-tokio", "tls-native-tls" ], optional = true }
 
-axum_session = {version = "0.12.1", features = ["sqlite-rustls"], optional = true  }
-axum_session_auth = { version = "0.12.1", features = ["sqlite-rustls"], optional = true  }
-axum = {version = "0.7.0", optional = true}
-
-bcrypt = {version = "0.16.0", optional = true }
-async-trait = {version = "0.1.87", optional = true  }
-anyhow = {version = "1.0.97", optional = true }
 
 [features]
-default = ["server"]
+default = ["web"]
 web = ["dioxus/web"]
 desktop = ["dioxus/desktop"]
 mobile = ["dioxus/mobile"]
-server = ["dioxus/server", "dep:tokio" , "sqlx", "axum_session", "axum_session_auth" , "axum", "bcrypt", "async-trait", "anyhow"]
 
 [profile]
 
