@@ -1,4 +1,6 @@
 #![allow(unused)]
+use std::collections::HashMap;
+
 use dioxus::{logger::tracing, prelude::*};
 //use std::io::Error;
 use reqwest::{Error, *};
@@ -6,19 +8,19 @@ use ::reqwest::{
     *,
 };
 use serde::{Deserialize, Serialize};
-use crate::user::*;
+use serde_json::json;
+use crate::{user::*, MySession};
 use anyhow::Result;
 
 
 
-pub async fn get_user() -> anyhow::Result<UserResponse> {
-    //let resp = match client.get("http://127.0.0.1:3000/profile").send().await {
-    let resp = match reqwest::get("http://127.0.0.1:3000/profile").await {
+pub async fn get_user(session: MySession) -> anyhow::Result<UserResponse> {
+    let client = reqwest::Client::builder().cookie_store(true).build()?;
+    let s = format!("session={}", session.0);
+    tracing::debug!("{}", &s);
+    let resp = match client.request(Method::GET, "http://127.0.0.1:3000/profile").header("Cookie", s).send().await {
         Ok(resp) => {
-            //let msg = resp.text().await.unwrap().clone();
-            //tracing::debug!(msg);
             return Ok(resp.json::<UserResponse>().await.unwrap());
-            //return Ok(UserResponse::default());
         },
         Err(e) => {
             println!("error: {}", e);
@@ -55,43 +57,21 @@ pub async fn register(name: String, password: String) -> anyhow::Result<()> {
     Ok(())
 }
 
-pub async fn login(name: String, password: String) -> Result<()> {
+pub async fn login(name: String, password: String) -> Result<String> {
     let post = UserEntry {
         username: name,
         password,
     };
+    let mut session = String::new();
     let client = reqwest::ClientBuilder::new().build()?;
     let response = client.post("http://127.0.0.1:3000/login").json(&post).send().await?;
-    response.headers()
-        .iter()
-        .for_each(|(key, value)| {
-            tracing::debug!("Header: {}: {:?}", key, value);
+    for cookie in response.cookies().into_iter() {
+        let k = cookie.name().to_string();
+        let v = cookie.value().to_string();
+        if k.contains("session") {
+            session = v.clone();
         }
-    );
-    response.cookies()
-        .for_each(|cookie| {
-            tracing::debug!("Cookie: {:?}", cookie);
-        }
-    );
-    Ok(())
+    }
+    Ok(session.to_owned())
 }
 
-/* pub async fn login3(client: Client, name: String, password: String) -> Result<()> {
-    let post = UserEntry {
-        username: name,
-        password,
-    };
-    //let client = reqwest::ClientBuilder::new().cookie_store(true).build()?;
-    client.post("http://127.0.0.1:3000/login").json(&post).send().await?;
-    Ok(())
-} */
-
-/* pub async fn login2(name: String, password: String) -> Result<()> {
-    let post = UserEntry {
-        username: name,
-        password,
-    };
-    let client = reqwest::ClientBuilder::new().cookie_store(true).build()?;
-    client.post("http://127.0.0.1:3000/login").json(&post).send().await?;
-    Ok(())
-} */

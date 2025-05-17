@@ -1,5 +1,6 @@
 use dioxus::prelude::*;
 
+use crate::MySession;
 use crate::Route; 
 use crate::request::*;
 
@@ -10,7 +11,7 @@ pub fn Login() -> Element {
   let mut error_msg = use_signal(|| String::new());
   //let client = use_context::<Signal<reqwest::Client>>();
   let navigator = use_navigator();
-  
+  let mut my_session = use_context::<Signal<MySession>>();
   rsx!(
     div { class: "screen flex justify-center items-center bg-slate-200",
       div { class: "border-solid border-2 border-slate-600 rounded-lg px-2 py-2 w-3/4",
@@ -43,7 +44,8 @@ pub fn Login() -> Element {
           onclick: move |_| async move {
               //let c = client.read().clone();
               match login(username(), password()).await {
-                  Ok(_) => {
+                  Ok(s) => {
+                      my_session.set(MySession(s));
                       match navigator.push(Route::User {}) {
                           Some(_) => {}
                           None => {}

@@ -1,6 +1,6 @@
 use dioxus::prelude::*;
 
-use crate::{request::get_user, Route};
+use crate::{request::get_user, MySession, Route};
 
 #[component]
 pub fn User() -> Element {
@@ -8,10 +8,10 @@ pub fn User() -> Element {
   let mut is_log = use_signal(|| false);
   //let mut message = use_signal(|| String::new());
   let mut user_signal = use_signal(|| String::new());
-  //let client = use_context::<Signal<reqwest::Client>>();
+  let mut my_session = use_context::<Signal<MySession>>();
   let _ = use_resource(move || async move {
     //let c = client.read().clone();
-    match get_user().await {
+    match get_user(my_session.read().clone()).await {
       Ok(user) => {
         is_log.set(true);
         user_signal.set(user.username.clone());

@@ -15,6 +15,8 @@ use reqwest::*;
 fn main() {
     #[cfg(feature = "web")]
     LaunchBuilder::web().launch(App);
+    #[cfg(feature = "desktop")]
+    LaunchBuilder::desktop().launch(App);
 }
 
 #[component]
@@ -22,6 +24,9 @@ fn App() -> Element {
     /* let client = use_context_provider(|| Signal::new(
         Client::builder().cookie_store(true).build().unwrap()
     )); */
+    use_context_provider(|| Signal::new(
+        MySession(String::new())
+    ));
     rsx!(
         document::Stylesheet { href: asset!("assets/main.css") }
         document::Stylesheet { href: asset!("assets/tailwind.css") }
@@ -49,3 +54,6 @@ pub enum Route {
     #[route("/user")]
     User {}
 }
+
+#[derive(Clone, Debug)]
+pub struct MySession(pub String);
