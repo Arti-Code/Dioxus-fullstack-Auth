@@ -12,6 +12,23 @@ pub struct User {
 }
 
 #[derive(PartialEq, Clone, Debug, Serialize, Deserialize)]
+pub struct UserResponse {
+    pub id : i64,
+    pub anonymous: bool,
+    pub username: String
+}
+
+impl Default for UserResponse {
+    fn default() -> Self {
+        Self {
+            id: 0,
+            username: String::from("default_user"),
+            anonymous: true,
+        }
+    }
+}
+
+#[derive(PartialEq, Clone, Debug, Serialize, Deserialize)]
 pub struct UserEntry {
     pub username: String,
     pub password: String,

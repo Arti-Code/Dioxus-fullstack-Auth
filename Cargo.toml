@@ -1,7 +1,6 @@
 [package]
 name = "webapp"
-version = "0.2.0"
-authors = ["mike"]
+version = "0.3.0"
 edition = "2021"
 
 # See more keys and their definitions at https://doc.rust-lang.org/cargo/reference/manifest.html
@@ -9,7 +8,7 @@ edition = "2021"
 [dependencies]
 dioxus = { version = "0.6.2", features = ["router"] }
 #sqlx = { version="0.7.0", features = [ "sqlite", "runtime-tokio", "tls-native-tls" ], optional = true }
-reqwest = { version = "0.12", features = ["json"] }
+#reqwest = { version = "0.11", features = ["json", "cookies"] }
 anyhow = { version = "1.0.98"}
 serde = { version = "1.0", features = ["derive"] }
 
@@ -17,7 +16,9 @@ serde = { version = "1.0", features = ["derive"] }
 version = "0.9"
 features = ["material-design-icons-action", "material-design-icons-home", "material-design-icons-social", "material-design-icons-navigation"]
 
-
+[dependencies.reqwest]
+version = "0.12.15"
+features = ["json", "cookies"]
 
 [features]
 default = ["web"]

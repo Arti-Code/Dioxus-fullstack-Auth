@@ -8,8 +8,9 @@ pub fn Login() -> Element {
   let mut username = use_signal(|| String::new());
   let mut password = use_signal(|| String::new());
   let mut error_msg = use_signal(|| String::new());
+  //let client = use_context::<Signal<reqwest::Client>>();
   let navigator = use_navigator();
-
+  
   rsx!(
     div { class: "screen flex justify-center items-center bg-slate-200",
       div { class: "border-solid border-2 border-slate-600 rounded-lg px-2 py-2 w-3/4",
@@ -40,6 +41,7 @@ pub fn Login() -> Element {
         button {
           class: "bg-sky-500 text-slate-50 px-3 py-2 rounded-lg w-full my-5 hover:bg-sky-600",
           onclick: move |_| async move {
+              //let c = client.read().clone();
               match login(username(), password()).await {
                   Ok(_) => {
                       match navigator.push(Route::User {}) {

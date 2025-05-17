@@ -4,6 +4,7 @@
 
 # HTML title tag content
 title = "auth"
+#base_path = "webapp"
 
 # include `assets` in web platform
 [web.resource]

@@ -7,6 +7,10 @@ mod request;
 mod user;
 
 use components::{login::Login, navbar::Navbar, register::Register, user::User};
+//use reqwest::{Client, ClientBuilder};
+use reqwest::*;
+
+//static CLIENT: Client = reqwest::ClientBuilder::new().cookie_store(true).build().unwrap();
 
 fn main() {
     #[cfg(feature = "web")]
@@ -15,6 +19,9 @@ fn main() {
 
 #[component]
 fn App() -> Element {
+    /* let client = use_context_provider(|| Signal::new(
+        Client::builder().cookie_store(true).build().unwrap()
+    )); */
     rsx!(
         document::Stylesheet { href: asset!("assets/main.css") }
         document::Stylesheet { href: asset!("assets/tailwind.css") }

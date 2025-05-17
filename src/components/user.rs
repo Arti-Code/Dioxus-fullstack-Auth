@@ -7,12 +7,14 @@ pub fn User() -> Element {
   let navigator = use_navigator();
   let mut is_log = use_signal(|| false);
   //let mut message = use_signal(|| String::new());
-  let mut user_signal = use_signal(|| crate::user::User::default());
+  let mut user_signal = use_signal(|| String::new());
+  //let client = use_context::<Signal<reqwest::Client>>();
   let _ = use_resource(move || async move {
+    //let c = client.read().clone();
     match get_user().await {
       Ok(user) => {
         is_log.set(true);
-        user_signal.set(user);
+        user_signal.set(user.username.clone());
       },
       Err(_e) => {
         is_log.set(false);
@@ -22,7 +24,7 @@ pub fn User() -> Element {
   });
   rsx!(
     div { class: "flex justify-center items-center screen",
-      div { class: "text-5xl", "{user_signal.read().name}" }
+      div { class: "text-5xl", "{user_signal.read()}" }
       if is_log() {
         button {
           class: "px-1 py-2 rounded-lg bg-slate-100 hover:bg-slate-200",
