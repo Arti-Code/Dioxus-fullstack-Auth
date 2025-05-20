@@ -49,15 +49,16 @@ body {
 }
 
 #navbar a {
-  color: #ffffff;
+  color: #3a3a3a;
   margin-right: 20px;
+  margin-right: 20px;;
   text-decoration: none;
   transition: color 0.2s ease;
 }
 
 #navbar a:hover {
   cursor: pointer;
-  color: #91a4d2;
+  color: #3a3a3a;
 }
 
 /* Blog page */

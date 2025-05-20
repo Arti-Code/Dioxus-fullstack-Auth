@@ -1,7 +1,11 @@
 @import "tailwindcss";
-@tailwind base;
-@tailwind components;
-@tailwind utilities;
-@plugin "flyonui";
+/* @tailwind base; */
+@import "tailwindcss/preflight";
+@import "tailwindcss/utilities";
+/* @import "tailwindcss/components"; */
+/* @import "tailwindcss/base"; */
+/* @tailwind components; */
+/* @tailwind utilities; */
+/* @plugin "flyonui";
 @import "./node_modules/flyonui/variants.css";
-@source "./node_modules/flyonui/dist/index.js";
+@source "./node_modules/flyonui/dist/index.js"; */

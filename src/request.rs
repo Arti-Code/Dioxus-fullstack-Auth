@@ -15,8 +15,9 @@ use anyhow::Result;
 
 
 pub async fn get_user(session: MySession) -> anyhow::Result<UserResponse> {
-    let client = reqwest::Client::builder().cookie_store(true).build()?;
-    let s = format!("session={}", session.0);
+    let client = reqwest::Client::builder().build()?;
+    //let client = reqwest::Client::builder().cookie_store(true).build()?;
+    let s = format!("[SESSION (get)]: {}", session.0);
     tracing::debug!("{}", &s);
     let resp = match client.request(Method::GET, "http://127.0.0.1:3000/profile").header("Cookie", s).send().await {
         Ok(resp) => {
@@ -65,13 +66,44 @@ pub async fn login(name: String, password: String) -> Result<String> {
     let mut session = String::new();
     let client = reqwest::ClientBuilder::new().build()?;
     let response = client.post("http://127.0.0.1:3000/login").json(&post).send().await?;
-    for cookie in response.cookies().into_iter() {
-        let k = cookie.name().to_string();
-        let v = cookie.value().to_string();
-        if k.contains("session") {
-            session = v.clone();
-        }
-    }
+    session = extract_session_from_response(&response);
     Ok(session.to_owned())
 }
 
+pub async fn logout(session: MySession) -> anyhow::Result<()> {
+    let client = reqwest::Client::builder().build()?;
+    //let client = reqwest::Client::builder().cookie_store(true).build()?;
+    let s = format!("session={}", session.0);
+    match client.request(Method::GET, "http://127.0.0.1:3000/logout").header("Cookie", s).send().await {
+        Ok(resp) => {
+            return Ok(());
+        },
+        Err(e) => {
+            println!("error: {}", e);
+            return Err(anyhow::anyhow!("Error: {}", e));
+        },
+    }
+}
+
+
+pub fn extract_session_from_response(resp: &Response) -> String {
+    let mut session = String::new();
+    resp.headers().get_all("set-cookie").iter().for_each(|header| {
+        tracing::debug!("headers: {}", header.to_str().unwrap());
+        if header.to_str().unwrap().contains("session") {
+            let v = header.to_str().unwrap();
+            tracing::debug!("header: {}", v);
+            let s: Vec<&str> = v.split("; ").collect();
+            s.iter().for_each(|h| {
+                tracing::debug!("split1: {}", h);
+            });
+            let s1: Vec<&str> = s[0].split("=").collect();
+            s1.iter().for_each(|h| {
+                tracing::debug!("split2: {}", h);
+            });
+            session = s1[1].to_string();
+        }
+    });
+    tracing::debug!("[SESSION (extract)]: {}", session);
+    session
+}
