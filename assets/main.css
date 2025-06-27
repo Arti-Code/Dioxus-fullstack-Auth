@@ -6,6 +6,10 @@ body {
   margin: 20px;
 }
 
+input {
+  background-color: slategray;
+}
+
 #hero {
   margin: 0;
   display: flex;

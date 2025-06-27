@@ -10,25 +10,25 @@ pub fn Register() -> Element {
   let navigator = use_navigator();
 
   rsx!(
-    div { class: "screen flex justify-center items-center bg-slate-50",
+    div { class: "screen flex justify-center items-center bg-slate-600",
       div { class: "border-solid border-2 border-slate-500 rounded-lg px-3 py-5 w-2/4",
-        div { class: "text-center text-slate-700 text-3xl", "Register" }
+        div { class: "text-center text-slate-300 text-3xl", "Register" }
         if !error_msg.to_string().is_empty() {
-          div { class: "bg-rose-100 text-rose-600 py-1 px-2 rounded-lg my-3",
+          div { class: "bg-rose-300 text-rose-600 py-1 px-2 rounded-lg my-3",
             " {error_msg}"
           }
         }
         div { class: "my-5",
           div { class: "text-lg", "username: " }
           input {
-            class: "w-full rounded-lg px-2 py-1 text-slate-700",
+            class: "w-full rounded-lg px-2 py-1 text-slate-300",
             r#type: "text",
             value: username,
             oninput: move |e| username.set(e.value()),
           }
         }
         div { class: "my-5",
-          div { class: "text-lg text-slate-700", "password: " }
+          div { class: "text-lg text-slate-300", "password: " }
           input {
             class: "w-full rounded-lg px-2 py-1",
             r#type: "password",
@@ -37,7 +37,7 @@ pub fn Register() -> Element {
           }
         }
         button {
-          class: "bg-sky-500 text-slate-50 px-3 py-2 rounded-lg w-full my-5 hover:bg-sky-600",
+          class: "bg-sky-500 text-slate-300 px-3 py-2 rounded-lg w-full my-5 hover:bg-sky-600",
           onclick: move |_| async move {
               match register(username(), password()).await {
                   Ok(_) => {
@@ -56,7 +56,7 @@ pub fn Register() -> Element {
         }
         div {
           "Already have an account ?"
-          Link { to: Route::Login {}, class: "text-sky-400", "login now" }
+          Link { to: Route::Login {}, class: "text-sky-500", "login now" }
         }
       }
     }
