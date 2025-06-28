@@ -9,6 +9,8 @@ mod backend;
 mod components;
 use components::{register::Register, login::Login, user::User};
 
+use crate::components::navbar::Navbar;
+
 fn main() {
     #[cfg(feature = "web")]
     LaunchBuilder::web().launch(App);
@@ -21,22 +23,27 @@ fn main() {
 
 #[component]
 fn App() -> Element {
+    use_context_provider(|| Signal::new(UserSession::new()));
     rsx!(
         document::Stylesheet { href: asset!("assets/main.css") }
         document::Stylesheet { href: asset!("assets/tailwind.css") }
-        Router::<Route> {}
+        body {
+            class: "bg-sky-950", 
+            Router::<Route> {}
+        }
     )
 }
 
 #[component]
 fn Home() -> Element {
     rsx!(
-        div { class: "text-sky-500", "Home" }
+        div { class: "bg-sky-950 h-full text-slate-300 w-full"}
     )
 }
 
 #[derive(Clone, PartialEq, Routable)]
 pub enum Route {
+    #[layout(Navbar)]
     #[route("/")]
     Home {},
     #[route("/register")]
@@ -45,4 +52,35 @@ pub enum Route {
     Login{},
     #[route("/user")]
     User {}
+}
+
+#[derive(PartialEq, Clone, Debug/* , Serialize, Deserialize */)]
+pub struct UserSession {
+    is_login: bool,
+}
+
+impl Default for UserSession {
+    fn default() -> Self {
+        Self {
+            is_login: false,
+        }
+    }
+}
+
+impl UserSession {
+    pub fn new() -> Self {
+        Self::default()
+    }
+
+    pub fn login(&mut self) {
+        self.is_login = true;
+    }
+
+    pub fn is_logged(&self) -> bool {
+        self.is_login
+    }
+
+    pub fn logout(&mut self) {
+        self.is_login = false;
+    }
 }
