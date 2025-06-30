@@ -59,13 +59,14 @@ pub async fn log_out () -> Result<(), ServerFnError> {
 }
 
 #[server]
-pub async fn get_user() -> Result<String, ServerFnError> {
+pub async fn get_user() -> Result<(i64, String), ServerFnError> {
   let auth_session = get_auth_session().await?;
 
   if auth_session.is_authenticated() {
     let user = auth_session.current_user.unwrap();
-    let msg = format!("Hello {}, your id is {} !", user.username, user.id);
-    Ok(msg)
+    //let msg = format!("Hello {}, your id is {} !", user.username, user.id);
+    let data = (user.id, user.username);
+    Ok(data)
   } else {
     let msg = format!("You are not Authorizied!"); 
     Err(ServerFnError::new(msg))

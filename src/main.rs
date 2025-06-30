@@ -1,14 +1,17 @@
 #![allow(non_snake_case)]
 
 use dioxus::prelude::*;
-
 #[cfg(feature="server")]
 use backend::axum_server::launch_server;
 
 mod backend;
 mod components;
-use components::{register::Register, login::Login, user::User};
-
+use components::{
+    register::{Register, Register2}, 
+    login::Login, 
+    user::{User, User2},
+    profile::Profile,
+};
 use crate::components::navbar::Navbar;
 
 fn main() {
@@ -47,11 +50,13 @@ pub enum Route {
     #[route("/")]
     Home {},
     #[route("/register")]
-    Register {},
+    Register2 {},
     #[route("/login")]
     Login{},
     #[route("/user")]
-    User {}
+    User {},
+    #[route("/profile")]
+    Profile {},
 }
 
 #[derive(PartialEq, Clone, Debug/* , Serialize, Deserialize */)]

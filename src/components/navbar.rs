@@ -15,10 +15,10 @@ pub fn Navbar() -> Element {
             li {
               class: "flex",
               button { 
-                class: "bg-slate-800 mx-8 my-3 px-6 py-3 border-blue-400 border-solid border-2 rounded-xl text-center text-bold text-2xl text-slate-200 hover:bg-slate-700 hover:border-blue-500",
+                class: "bg-slate-800 mx-8 my-3 px-4 py-2 border-blue-400 border-solid border-4 rounded-xl text-center text-bold text-2xl text-slate-200 hover:bg-slate-700 hover:border-blue-500",
                 onclick: move |_| {
                   //session.write().logout();
-                  navigator.push(Route::Register{});
+                  navigator.push(Route::Register2{});
                   
                 }, 
                 "REGISTER" 
@@ -27,7 +27,7 @@ pub fn Navbar() -> Element {
             li {
               class: "flex",
               button { 
-                class: "bg-slate-800 mx-8 my-3 px-6 py-3 border-green-400 border-solid border-2 rounded-xl text-center text-bold text-2xl text-slate-200 hover:bg-slate-700 hover:border-green-500",
+                class: "bg-slate-800 mx-8 my-3 px-4 py-2 border-green-400 border-solid border-4 rounded-xl text-center text-bold text-2xl text-slate-200 hover:bg-slate-700 hover:border-green-500",
                   onclick: move |_| {
                     //session.write().logout();
                     navigator.push(Route::Login{});
@@ -39,7 +39,7 @@ pub fn Navbar() -> Element {
             li {
               class: "flex",
               button { 
-                class: "bg-slate-800 mx-8 my-3 px-6 py-3 border-slate-400 border-solid border-2 rounded-xl text-center text-bold text-2xl text-slate-200 hover:bg-slate-700 hover:border-slate-300",
+                class: "bg-slate-800 mx-8 my-3 px-4 py-2 border-slate-400 border-solid border-4 rounded-xl text-center text-bold text-2xl text-slate-200 hover:bg-slate-700 hover:border-slate-300",
                 onclick: move |_| {
                   //session.write().logout();
                   navigator.replace(Route::Home{});
@@ -49,22 +49,19 @@ pub fn Navbar() -> Element {
             }
             li {
               class: "flex",
-              button {
-                class: "bg-slate-800 mx-8 my-3 px-6 py-3 border-cyan-400 border-solid border-2 rounded-xl text-center text-bold text-2xl text-slate-200 hover:bg-cyan-700 hover:border-cyan-500",
-                "ROBOTS" 
-              }
-            }
-            li {
-              class: "flex",
               button { 
-                class: "bg-slate-800 mx-8 my-3 px-6 py-3 border-cyan-400 border-solid border-2 rounded-xl text-center text-bold text-2xl text-slate-200 hover:bg-slate-700 hover:border-cyan-500",
+                class: "bg-slate-800 mx-8 my-3 px-4 py-2 border-cyan-400 border-solid border-4 rounded-xl text-center text-bold text-2xl text-slate-200 hover:bg-slate-700 hover:border-cyan-500",
+                onclick: move |_| {
+                  //session.write().logout();
+                  navigator.replace(Route::Profile {});
+                }, 
                 "PROFILE"
               } 
             }
             li {
               class: "flex",
               button { 
-                class: "bg-slate-800 mx-8 my-3 px-6 py-3 border-orange-400 border-solid border-2 rounded-xl text-center text-bold text-2xl text-slate-200 hover:bg-slate-700 hover:border-orange-500",
+                class: "bg-slate-800 mx-8 my-3 px-4 py-2 border-orange-400 border-solid border-4 rounded-xl text-center text-bold text-2xl text-slate-200 hover:bg-slate-700 hover:border-orange-500",
                 onclick: move |_| {
                   let s = user_session.write().clone();
                   if s.is_logged() {

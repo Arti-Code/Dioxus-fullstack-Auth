@@ -12,25 +12,25 @@ pub fn Login() -> Element {
   rsx!(
     div { class: "w-2/3 flex justify-center items-center bg-slate-800 mx-auto my-5",
       div { class: "border-solid justify-center items-center border-2 border-slate-700 rounded-lg px-3 py-5 w-full",
-        div { class: "text-center text-3xl", "Login" }
+        div { class: "text-center text-3xl text-slate-300", "LOGIN" }
         if !error_msg.to_string().is_empty() {
           div { class: "bg-rose-100 text-rose-600 py-1 px-2 rounded-lg my-3",
             " {error_msg}"
           }
         }
-        div { class: "my-5",
-          div { class: "text-lg text-slate-300", "username: " }
+        div { class: "flex my-5 justify-center mx-auto flex-col w-3/5",
+          div { class: "flex text-lg text-slate-300 text-center", "username: " }
           input {
-            class: "w-full rounded-lg px-2 py-1 bg-slate-100",
+            class: "flex w-full rounded-lg mx-auto px-2 py-1 bg-slate-100",
             r#type: "text",
             value: username,
             oninput: move |e| username.set(e.value()),
           }
         }
-        div { class: "my-5",
-          div { class: "text-lg text-slate-300", "password: " }
+        div { class: "flex my-5 justify-center mx-auto flex-col w-3/5",
+          div { class: "flex text-lg text-slate-300 text-center", "password: " }
           input {
-            class: "w-full rounded-lg px-2 py-1 bg-slate-100",
+            class: "flex w-full rounded-lg mx-auto px-2 py-1 bg-slate-100",
             r#type: "password",
             value: password,
             oninput: move |e| password.set(e.value()),
@@ -56,10 +56,6 @@ pub fn Login() -> Element {
               }
           },
           "LOGIN"
-        }
-        div {
-          "Don't have an account ?"
-          Link { to: Route::Register {}, class: "text-sky-400", "register now" }
         }
       }
     }
