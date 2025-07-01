@@ -1,6 +1,9 @@
 use dioxus::prelude::*;
 
 #[cfg(feature="server")]
+use crate::backend::model::Robot;
+
+#[cfg(feature="server")]
 use super::{auth_session:: get_auth_session, db::get_db, model::UserSql};
 
 #[server]
@@ -67,6 +70,31 @@ pub async fn get_user() -> Result<(i64, String), ServerFnError> {
     //let msg = format!("Hello {}, your id is {} !", user.username, user.id);
     let data = (user.id, user.username);
     Ok(data)
+  } else {
+    let msg = format!("You are not Authorizied!"); 
+    Err(ServerFnError::new(msg))
+  }
+}
+
+#[server]
+pub async fn get_robots() -> Result<Vec<(i64, String, bool)>, ServerFnError> {
+  let auth_session = get_auth_session().await?;
+  if auth_session.is_authenticated() {
+    return match auth_session.current_user {
+      Some(user) => {
+        let pool = get_db().await;
+        let robots: Vec<Robot> = sqlx::query_as("SELECT * FROM robots WHERE owner = ?1").bind(&user.id).fetch_all(pool).await.unwrap();
+        let list: Vec<(i64, String, bool)> = robots.iter().map(|robot| {
+          (robot.id, robot.name.clone(), robot.online)
+        }).collect();
+        Ok(list)
+      },
+      None => {
+        let msg = format!("User error!"); 
+        Err(ServerFnError::new(msg))
+      }
+    };
+    //Ok(data)
   } else {
     let msg = format!("You are not Authorizied!"); 
     Err(ServerFnError::new(msg))

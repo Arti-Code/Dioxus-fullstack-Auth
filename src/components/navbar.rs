@@ -7,18 +7,18 @@ pub fn Navbar() -> Element {
   let navigator = use_navigator();
   let mut user_session = use_context::<Signal<UserSession>>();
   rsx! (
-    nav { class:"bg-slate-900",
-      div { class:"flex w-2/3 justify-center",
+    nav { 
+        class:"bg-slate-900",
         ul {
           class:"flex row justify-left align-center w-full",
           if !user_session.read().is_logged() {
             li {
               class: "flex",
               button { 
-                class: "bg-slate-800 mx-8 my-3 px-4 py-2 border-blue-400 border-solid border-4 rounded-xl text-center text-bold text-2xl text-slate-200 hover:bg-slate-700 hover:border-blue-500",
+                class: "bg-slate-800 mx-4 my-1 px-2 py-1 border-blue-400 border-solid border-4 rounded-xl text-center text-bold text-xl text-slate-200 hover:bg-slate-700 hover:border-blue-500",
                 onclick: move |_| {
                   //session.write().logout();
-                  navigator.push(Route::Register2{});
+                  navigator.push(Route::Register{});
                   
                 }, 
                 "REGISTER" 
@@ -27,7 +27,7 @@ pub fn Navbar() -> Element {
             li {
               class: "flex",
               button { 
-                class: "bg-slate-800 mx-8 my-3 px-4 py-2 border-green-400 border-solid border-4 rounded-xl text-center text-bold text-2xl text-slate-200 hover:bg-slate-700 hover:border-green-500",
+                class: "bg-slate-800 mx-4 my-1 px-2 py-1 border-green-400 border-solid border-4 rounded-xl text-center text-bold text-xl text-slate-200 hover:bg-slate-700 hover:border-green-500",
                   onclick: move |_| {
                     //session.write().logout();
                     navigator.push(Route::Login{});
@@ -39,7 +39,7 @@ pub fn Navbar() -> Element {
             li {
               class: "flex",
               button { 
-                class: "bg-slate-800 mx-8 my-3 px-4 py-2 border-slate-400 border-solid border-4 rounded-xl text-center text-bold text-2xl text-slate-200 hover:bg-slate-700 hover:border-slate-300",
+                class: "bg-slate-800 mx-4 my-1 px-2 py-1 border-slate-400 border-solid border-4 rounded-xl text-center text-bold text-xl text-slate-200 hover:bg-slate-700 hover:border-slate-300",
                 onclick: move |_| {
                   //session.write().logout();
                   navigator.replace(Route::Home{});
@@ -50,7 +50,7 @@ pub fn Navbar() -> Element {
             li {
               class: "flex",
               button { 
-                class: "bg-slate-800 mx-8 my-3 px-4 py-2 border-cyan-400 border-solid border-4 rounded-xl text-center text-bold text-2xl text-slate-200 hover:bg-slate-700 hover:border-cyan-500",
+                class: "bg-slate-800 mx-4 my-1 px-2 py-1 border-cyan-400 border-solid border-4 rounded-xl text-center text-bold text-xl text-slate-200 hover:bg-slate-700 hover:border-cyan-500",
                 onclick: move |_| {
                   //session.write().logout();
                   navigator.replace(Route::Profile {});
@@ -61,7 +61,7 @@ pub fn Navbar() -> Element {
             li {
               class: "flex",
               button { 
-                class: "bg-slate-800 mx-8 my-3 px-4 py-2 border-orange-400 border-solid border-4 rounded-xl text-center text-bold text-2xl text-slate-200 hover:bg-slate-700 hover:border-orange-500",
+                class: "bg-slate-800 mx-4 my-1 px-2 py-1 border-orange-400 border-solid border-4 rounded-xl text-center text-bold text-xl text-slate-200 hover:bg-slate-700 hover:border-orange-500",
                 onclick: move |_| {
                   let s = user_session.write().clone();
                   if s.is_logged() {
@@ -74,7 +74,6 @@ pub fn Navbar() -> Element {
             }
           }
         }
-      }
     }
     Outlet::<Route> {}
   )

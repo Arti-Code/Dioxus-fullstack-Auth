@@ -7,10 +7,11 @@ use backend::axum_server::launch_server;
 mod backend;
 mod components;
 use components::{
-    register::{Register, Register2}, 
+    register::Register, 
     login::Login, 
-    user::{User, User2},
+    user::User,
     profile::Profile,
+    home::Home,
 };
 use crate::components::navbar::Navbar;
 
@@ -37,12 +38,6 @@ fn App() -> Element {
     )
 }
 
-#[component]
-fn Home() -> Element {
-    rsx!(
-        div { class: "bg-sky-950 h-full text-slate-300 w-full"}
-    )
-}
 
 #[derive(Clone, PartialEq, Routable)]
 pub enum Route {
@@ -50,7 +45,7 @@ pub enum Route {
     #[route("/")]
     Home {},
     #[route("/register")]
-    Register2 {},
+    Register {},
     #[route("/login")]
     Login{},
     #[route("/user")]

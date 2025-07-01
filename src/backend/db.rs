@@ -14,15 +14,15 @@ static DB: OnceCell<Pool<Sqlite>> = OnceCell::const_new();
 async fn db() -> Pool<Sqlite> {
   let pool = sqlx::sqlite::SqlitePool::connect("sqlite://db.sqlite").await.unwrap();
 
-  pool.execute("
+  /* pool.execute("
     CREATE TABLE IF NOT EXISTS users (
       id INTEGER PRIMARY KEY AUTOINCREMENT,
       username TEXT,
       password TEXT
     )
-  ").await.unwrap();
-  //create_db_users(&pool).await;
-  //create_db_robots(&pool).await;
+  ").await.unwrap(); */
+  create_db_users(&pool).await;
+  create_db_robots(&pool).await;
   let rows : Vec<UserSql> = sqlx::query_as("SELECT * FROM users WHERE id = ?1").bind(&1).fetch_all(&pool).await.unwrap(); 
 
   if rows.len() == 0 {
@@ -54,8 +54,8 @@ pub async fn create_db_robots(pool: &Pool<Sqlite>) {
     CREATE TABLE IF NOT EXISTS robots (
       id INTEGER PRIMARY KEY AUTOINCREMENT,
       name TEXT,
-      owner: INTEGER,
-      online TEXT
+      owner INTEGER,
+      online BOOL
     )
   ").await.unwrap();
 }
