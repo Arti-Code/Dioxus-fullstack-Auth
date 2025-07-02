@@ -1,7 +1,9 @@
 #[cfg(feature="server")]
 use axum::Router;
 #[cfg(feature="server")]
-use axum_session::{SessionLayer, SessionSqlitePool, SessionStore};
+use axum_session::{SessionLayer, SessionStore, SessionSqlitePool};
+//#[cfg(feature="server")]
+//use axum_session_sqlx::SessionSqlitePool;
 #[cfg(feature="server")]
 use axum_session_auth::{AuthConfig, AuthSessionLayer};
 use dioxus::prelude::*;

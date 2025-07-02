@@ -1,7 +1,7 @@
+//#[cfg(feature="server")]
+//use axum_session_sqlx::SessionSqlitePool;
 #[cfg(feature="server")]
-use axum_session::SessionSqlitePool;
-#[cfg(feature="server")]
-use axum_session_auth::{AuthConfig, AuthSession, Authentication};
+use axum_session_auth::{AuthConfig, AuthSession, Authentication, SessionSqlitePool};
 #[cfg(feature="server")]
 use sqlx::SqlitePool;
 #[cfg(feature="server")]

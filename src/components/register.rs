@@ -7,7 +7,7 @@ use crate::components::style::*;
 pub fn Register() -> Element {
   let mut username = use_signal(|| String::new());
   let mut password = use_signal(|| String::new());
-  let mut error_msg = use_signal(|| String::new());
+  let error_msg = use_signal(|| String::new());
   let navigator = use_navigator();
   rsx!(
     div { 

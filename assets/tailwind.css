@@ -321,9 +321,6 @@
   .border-slate-700 {
     border-color: var(--color-slate-700);
   }
-  .bg-green-500 {
-    background-color: var(--color-green-500);
-  }
   .bg-green-600 {
     background-color: var(--color-green-600);
   }
