@@ -44,8 +44,12 @@ pub const STYLE_BUTTON_SKY: &str = "
     flex bg-sky-500 text-slate-200 px-3 py-2 text-bold text-2xl rounded-lg w-1/2 mx-auto my-5 hover:bg-sky-600
 "; 
 
-pub const STYLE_BUTTON_NO_COLOR: &str = "
+pub const STYLE_BUTTON_NO_COLOR_1_2: &str = "
     text-center text-slate-200 px-3 py-2 text-bold text-2xl rounded-lg w-1/2 mx-auto my-5 hover:bg-sky-600
+"; 
+
+pub const STYLE_BUTTON_NO_COLOR: &str = "
+    text-center text-slate-200 px-3 py-2 text-bold text-2xl rounded-lg mx-auto my-5 hover:bg-sky-600
 "; 
 
 pub const STYLE_GRID_SINGLE: &str = "
@@ -53,7 +57,7 @@ pub const STYLE_GRID_SINGLE: &str = "
 "; 
 
 pub const STYLE_FIELD_NO_COLORS: &str = "
-    text-center border-solid border-1 text-xl font-bold mx-auto
+    text-center border-solid border-1 mx-auto
 ";
 
 pub const STYLE_FIELD_NO_BORDER: &str = "
@@ -74,4 +78,8 @@ pub const STYLE_LABEL_XL_BOLD: &str = "
 
 pub const STYLE_LABEL_XL_BOLD_MX: &str = "
     text-center text-xl font-bold mx-auto
+";
+
+pub const STYLE_TEXT_XL: &str = "
+    text-xl font-bold text-slate-200
 ";

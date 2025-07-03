@@ -76,7 +76,7 @@ pub async fn get_user() -> Result<(i64, String), ServerFnError> {
   }
 }
 
-#[server]
+/* #[server]
 pub async fn get_robots() -> Result<Vec<(i64, String, bool)>, ServerFnError> {
   let auth_session = get_auth_session().await?;
   if auth_session.is_authenticated() {
@@ -99,4 +99,55 @@ pub async fn get_robots() -> Result<Vec<(i64, String, bool)>, ServerFnError> {
     let msg = format!("You are not Authorizied!"); 
     Err(ServerFnError::new(msg))
   }
+} */
+
+
+
+
+
+//* ROBOT FUNCTIONS */
+
+#[server]
+pub async fn create_robot(name: String, owner: i64) -> Result<(), ServerFnError> {
+  let auth_session = get_auth_session().await?;
+  if auth_session.is_authenticated() {
+    let user = auth_session.current_user.unwrap();
+    if name.trim() == "" {
+      let msg = format!("robot name can't be empty!");
+      Err(ServerFnError::new(msg))
+    } else {
+        let pool = get_db().await;
+        let rows: Vec<UserSql> = sqlx::query_as("SELECT * FROM robots WHERE name = ?1")
+          .bind(&name).fetch_all(pool).await.unwrap();
+        if rows.len() != 0 {
+          let msg = format!("robot name {} is already taken!", name);
+          Err(ServerFnError::new(msg))
+        } else {
+          sqlx::query("INSERT INTO robots (name, owner, online) VALUES (?1, ?2, ?3)")
+            .bind(&name).bind(&owner).bind(false).execute(pool).await.unwrap();
+          Ok(())
+        }
+    }
+  } else {
+    let msg = format!("You are not authorized!"); 
+    Err(ServerFnError::new(msg))
+  } 
+}
+
+#[server]
+pub async fn get_robots() -> Result<Vec<(i64, String, bool)>, ServerFnError> {
+  let auth_session = get_auth_session().await?;
+  if auth_session.is_authenticated() {
+    let user = auth_session.current_user.unwrap();
+    let pool = get_db().await;
+    let rows: Vec<Robot> = sqlx::query_as("SELECT * FROM robots WHERE owner = ?1")
+      .bind(&user.id).fetch_all(pool).await.unwrap();
+    let data: Vec<(i64, String, bool)> = rows.iter().map(|robot| {
+      (robot.id, robot.name.clone(), robot.online)
+    }).collect();
+    Ok(data)
+  } else {
+    let msg = format!("You are not authorized!"); 
+    Err(ServerFnError::new(msg))
+  } 
 }
