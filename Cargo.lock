@@ -282,22 +282,6 @@ source = "registry+https://github.com/rust-lang/crates.io-index"
 checksum = "1505bd5d3d116872e7271a6d4e16d81d0c8570876c8de68093a09ac269d8aac0"
 
 [[package]]
-name = "auth"
-version = "0.3.0"
-dependencies = [
- "anyhow",
- "async-trait",
- "axum",
- "axum_session",
- "axum_session_auth",
- "bcrypt",
- "dioxus",
- "serde",
- "sqlx",
- "tokio",
-]
-
-[[package]]
 name = "autocfg"
 version = "1.5.0"
 source = "registry+https://github.com/rust-lang/crates.io-index"
@@ -4443,6 +4427,22 @@ dependencies = [
  "libc",
  "untrusted",
  "windows-sys 0.52.0",
+]
+
+[[package]]
+name = "robots"
+version = "0.3.1"
+dependencies = [
+ "anyhow",
+ "async-trait",
+ "axum",
+ "axum_session",
+ "axum_session_auth",
+ "bcrypt",
+ "dioxus",
+ "serde",
+ "sqlx",
+ "tokio",
 ]
 
 [[package]]
