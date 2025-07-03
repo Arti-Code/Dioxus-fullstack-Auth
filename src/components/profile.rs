@@ -1,5 +1,9 @@
 use dioxus::prelude::*;
-use crate::{backend::server_functions::{get_user, register}, Route};
+use crate::{
+  backend::server_functions::get_user,
+  components::style::*, 
+  Route
+};
 
 
 #[component]
@@ -15,28 +19,24 @@ pub fn Profile() -> Element {
         };
     });
     rsx!(
-      div { class: "flex",  
+      div { 
+        class: STYLE_CARD_BOX1,
+        //class: "flex",  
         div {
-          class: "grid grid-cols-1 gap-4 w-3/4 bg-slate-100 p-5 mx-auto",
+          class: STYLE_GRID_SINGLE,
           div { 
-            class: "text-center bg-slate-100 border-solid border-1 border-blue-200  text-xl font-bold",
-            "ID {active_user.read().0}   {active_user.read().1.to_uppercase()}"
+            class: my_style(STYLE_FIELD_NO_BORDER, "w-2/3 text-slate-200"),
+            "{active_user.read().1.to_uppercase()}"
           }
           button {
-            class: "bg-slate-300 p-1 font-bold rounded w-1/2 mx-auto hover:bg-slate-100",
+            class: my_style(STYLE_FIELD_NO_COLORS, "bg-gray-400 hover:bg-gray-300 w-2/3"),
             onclick: move |_| {
               navigator.push(Route::Home{});
             },
             "BACK"
           }
           button {
-            class: "bg-yellow-300 p-1 font-bold rounded w-1/2 mx-auto hover:bg-yellow-100",
-            onclick: move |_| async move{
-            },
-            "LOGOUT"
-          }
-          button {
-            class: "bg-rose-300 p-1 font-bold rounded w-1/2 mx-auto hover:bg-rose-100",
+            class: my_style(STYLE_FIELD_NO_COLORS, "bg-red-400 hover:bg-red-300 w-2/3"),
             onclick: move |_| async move {
             },
             "DELETE ACCOUNT"

@@ -1,47 +1,32 @@
 use dioxus::prelude::*;
-use crate::{backend::server_functions::{get_user, register}, Route};
+use crate::{components::style::*, Route};
 
 
 #[component]
 pub fn Robots() -> Element {
-    let navigator = use_navigator();
-    let mut active_user = use_signal(|| (0, String::new()));
-    let _ = use_resource(move || async move {
-        match get_user().await {
-            Ok(data) => {
-                active_user.set(data);
-            },
-            Err(e) => {},
-        };
-    });
-    rsx!(
-      div { class: "flex",  
-        div {
-          class: "grid grid-cols-1 gap-4 w-3/4 bg-slate-100 p-5 mx-auto",
-          div { 
-            class: "text-center bg-slate-100 border-solid border-1 border-blue-200  text-xl font-bold",
-            "ID {active_user.read().0}   {active_user.read().1.to_uppercase()}"
-          }
-          button {
-            class: "bg-slate-300 p-1 font-bold rounded w-1/2 mx-auto hover:bg-slate-100",
-            onclick: move |_| {
-              navigator.push(Route::Home{});
-            },
-            "BACK"
-          }
-          button {
-            class: "bg-yellow-300 p-1 font-bold rounded w-1/2 mx-auto hover:bg-yellow-100",
-            onclick: move |_| async move{
-            },
-            "LOGOUT"
-          }
-          button {
-            class: "bg-rose-300 p-1 font-bold rounded w-1/2 mx-auto hover:bg-rose-100",
-            onclick: move |_| async move {
-            },
-            "DELETE ACCOUNT"
+  let navigator = use_navigator();
+  rsx!(
+    div { 
+      class: STYLE_CARD_BOX1,
+      div {
+        class: STYLE_GRID_SINGLE,
+        div { 
+          class: my_style(STYLE_BUTTON_NO_COLOR, "bg-green-600 hover:bg-green-500"),
+          onclick: move |_| {
+            navigator.push(Route::AddRobot{});          
+          },
+          "CREATE"
+        }
+        div { 
+          class: STYLE_GRID_SINGLE,
+          for i in 0..5 {
+            div { 
+              class: STYLE_LABEL_XL_BOLD_MX,
+              "ROBOT {i}"
+            }
           }
         }
       }
-      )
-  }
+    }
+  )
+}

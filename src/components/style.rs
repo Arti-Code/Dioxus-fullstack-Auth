@@ -1,7 +1,6 @@
 
 /* 
 pub const STYLE_ROBOT_LABEL: &str = "
-    ...
 "; 
 */
 
@@ -46,5 +45,33 @@ pub const STYLE_BUTTON_SKY: &str = "
 "; 
 
 pub const STYLE_BUTTON_NO_COLOR: &str = "
-    flex text-slate-200 px-3 py-2 text-bold text-2xl rounded-lg w-1/2 mx-auto my-5 hover:bg-sky-600
+    text-center text-slate-200 px-3 py-2 text-bold text-2xl rounded-lg w-1/2 mx-auto my-5 hover:bg-sky-600
 "; 
+
+pub const STYLE_GRID_SINGLE: &str = "
+    grid grid-cols-1 gap-4 w-3/4 p-5 mx-auto
+"; 
+
+pub const STYLE_FIELD_NO_COLORS: &str = "
+    text-center border-solid border-1 text-xl font-bold mx-auto
+";
+
+pub const STYLE_FIELD_NO_BORDER: &str = "
+    text-center text-xl font-bold mx-auto
+";
+
+pub const STYLE_NAVBAR: &str = "
+    flex row justify-left align-center w-full bg-slate-900
+"; 
+
+pub const STYLE_NAV_BTN: &str = "
+    mx-2 my-1 px-1 py-1 border-solid border-2 rounded-xl text-center font-bold text-xl text-slate-200 bg-slate-800 hover:bg-slate-700 hover:border-2
+"; 
+
+pub const STYLE_LABEL_XL_BOLD: &str = "
+    text-center text-xl font-bold
+";
+
+pub const STYLE_LABEL_XL_BOLD_MX: &str = "
+    text-center text-xl font-bold mx-auto
+";

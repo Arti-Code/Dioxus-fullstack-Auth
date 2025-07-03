@@ -1,3 +1,4 @@
+pub mod add_robot;
 pub mod style;
 pub mod home;
 pub mod register;

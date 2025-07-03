@@ -12,6 +12,8 @@ use components::{
     user::User,
     profile::Profile,
     home::Home,
+    robots::Robots,
+    add_robot::AddRobot,
 };
 use crate::components::navbar::Navbar;
 
@@ -52,6 +54,10 @@ pub enum Route {
     User {},
     #[route("/profile")]
     Profile {},
+    #[route("/robots")]
+    Robots {},
+    #[route("/robots/add")]
+    AddRobot {},
 }
 
 #[derive(PartialEq, Clone, Debug/* , Serialize, Deserialize */)]
