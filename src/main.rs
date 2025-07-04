@@ -18,6 +18,10 @@ use components::{
 };
 use crate::components::navbar::Navbar;
 
+static ROBOT128: Asset = asset!("/assets/robot128.png");
+static ONLINE128: Asset = asset!("/assets/online.png");
+static OFFLINE128: Asset = asset!("/assets/offline.png");
+
 fn main() {
     #[cfg(feature = "web")]
     LaunchBuilder::web().launch(App);
