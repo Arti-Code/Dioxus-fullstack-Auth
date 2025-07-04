@@ -7,3 +7,4 @@ pub mod user;
 pub mod navbar;
 pub mod profile;
 pub mod robots;
+pub mod robots2;

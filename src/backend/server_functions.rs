@@ -9,7 +9,7 @@ use super::{auth_session:: get_auth_session, db::get_db, model::UserSql};
 #[server]
 pub async fn register(username: String, password: String) -> Result<(), ServerFnError> {
   if username.trim() == "" || password.is_empty() {
-    let msg = format!("Username or Password can't be empty!");
+    let msg = format!("name or password can't be empty!");
     Err(ServerFnError::new(msg))
   } else {
       let pool = get_db().await;
@@ -28,7 +28,7 @@ pub async fn register(username: String, password: String) -> Result<(), ServerFn
 #[server]
 pub async fn log_in(username: String, password: String) -> Result<(), ServerFnError> {
   if username.trim() == "" || password.is_empty() {
-    let msg = format!("Username or Password can't be empty!");
+    let msg = format!("name or password can't be empty!");
     Err(ServerFnError::new(msg))
   } else if username == "guest" {
     let msg = format!("Guest is not allowed to log in.");
@@ -38,7 +38,7 @@ pub async fn log_in(username: String, password: String) -> Result<(), ServerFnEr
     let rows: Vec<UserSql> = sqlx::query_as("SELECT * FROM users WHERE username = ?1").bind(&username).fetch_all(pool).await.unwrap();
 
     if rows.len() == 0 {
-      let msg = format!("Username {} is not registered!", username);
+      let msg = format!("user not exists!");
       Err(ServerFnError::new(msg))
     } else {
       let is_valid = bcrypt::verify(password, &rows[0].password).unwrap();
@@ -47,7 +47,7 @@ pub async fn log_in(username: String, password: String) -> Result<(), ServerFnEr
         auth_session.login_user(rows[0].id);
         Ok(())
       } else {
-        let msg = format!("Password is not correct!");
+        let msg = format!("wrong password");
         Err(ServerFnError::new(msg))
       }
     }
@@ -71,7 +71,7 @@ pub async fn get_user() -> Result<(i64, String), ServerFnError> {
     let data = (user.id, user.username);
     Ok(data)
   } else {
-    let msg = format!("You are not Authorizied!"); 
+    let msg = format!("authorization needed!"); 
     Err(ServerFnError::new(msg))
   }
 }
@@ -124,12 +124,12 @@ pub async fn create_robot(name: String, owner: i64) -> Result<(), ServerFnError>
           Err(ServerFnError::new(msg))
         } else {
           sqlx::query("INSERT INTO robots (name, owner, online) VALUES (?1, ?2, ?3)")
-            .bind(&name).bind(&owner).bind(false).execute(pool).await.unwrap();
+            .bind(&name).bind(&owner).bind(true).execute(pool).await.unwrap();
           Ok(())
         }
     }
   } else {
-    let msg = format!("You are not authorized!"); 
+    let msg = format!("authorization needed!"); 
     Err(ServerFnError::new(msg))
   } 
 }
@@ -147,7 +147,7 @@ pub async fn get_robots() -> Result<Vec<(i64, String, bool)>, ServerFnError> {
     }).collect();
     Ok(data)
   } else {
-    let msg = format!("You are not authorized!"); 
+    let msg = format!("authorization needed!"); 
     Err(ServerFnError::new(msg))
   } 
 }

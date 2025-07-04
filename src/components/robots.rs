@@ -37,9 +37,20 @@ pub fn Robots() -> Element {
         div { 
           class: STYLE_GRID_SINGLE,
           for (id, name, online) in robot_list.read().iter() {
-            div { 
-              class: my_style(STYLE_LABEL_XL_BOLD_MX, STYLE_TEXT_XL),
-              "[{id}]: {name}"
+            div {
+              class: "flex flex-row justify-left w-4/5",
+              div { 
+                class: my_style(STYLE_LABEL_XL_BOLD_MX_LEFT, STYLE_TEXT_XL),
+                "{id}"
+              }
+              div { 
+                class: my_style(STYLE_LABEL_XL_BOLD_MX_LEFT, STYLE_TEXT_XL),
+                "{name}"
+              }
+              div {
+                class: my_style("font-bold text-3xl rounded-xl px-2 text-center align-center", if *online {"text-green-500"} else {"text-red-500"}),
+                "⊚"
+              }
             }
           }
         }

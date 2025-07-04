@@ -13,6 +13,7 @@ use components::{
     profile::Profile,
     home::Home,
     robots::Robots,
+    robots2::Robots2,
     add_robot::AddRobot,
 };
 use crate::components::navbar::Navbar;
@@ -56,6 +57,8 @@ pub enum Route {
     Profile {},
     #[route("/robots")]
     Robots {},
+    #[route("/robots2")]
+    Robots2 {},
     #[route("/robots/add")]
     AddRobot {},
 }

@@ -4,24 +4,33 @@ use crate::{
   components::style::*, 
   Route
 };
-
+use crate::backend::model::UserSession;
 
 #[component]
 pub fn Profile() -> Element {
     let navigator = use_navigator();
     let mut active_user = use_signal(|| (0, String::new()));
+    let mut error_msg = use_signal(|| String::new());
+    //let user_session = use_context::<Signal<UserSession>>();
     let _ = use_resource(move || async move {
         match get_user().await {
             Ok(data) => {
                 active_user.set(data);
             },
-            Err(e) => {},
+            Err(e) => {
+              error_msg.set(e.to_string().split(":").collect::<Vec<&str>>()[1].to_string())
+            },
         };
     });
     rsx!(
       div { 
         class: STYLE_CARD_BOX1,
         //class: "flex",  
+        if !error_msg.to_string().is_empty() {
+          div { class: STYLE_ERROR_MESSAGE,
+            " {error_msg}"
+          }
+        }
         div {
           class: STYLE_GRID_SINGLE,
           div { 

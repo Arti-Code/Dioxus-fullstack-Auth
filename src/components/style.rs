@@ -83,3 +83,7 @@ pub const STYLE_LABEL_XL_BOLD_MX: &str = "
 pub const STYLE_TEXT_XL: &str = "
     text-xl font-bold text-slate-200
 ";
+
+pub const STYLE_LABEL_XL_BOLD_MX_LEFT: &str = "
+    text-left text-xl font-bold mx-auto border-1 border-slate-200
+";

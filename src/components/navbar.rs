@@ -53,9 +53,20 @@ pub fn Navbar() -> Element {
                 class: my_style(STYLE_NAV_BTN, "border-lime-400 hover:border-lime-500"), 
                 onclick: move |_| {
                   //session.write().logout();
-                  navigator.replace(Route::Robots{});
+                  navigator.replace(Route::Robots {});
                 }, 
                 "ROBOTS"
+              } 
+            }
+            li {
+              class: "flex",
+              button { 
+                class: my_style(STYLE_NAV_BTN, "border-magenta-400 hover:border-magenta-500"), 
+                onclick: move |_| {
+                  //session.write().logout();
+                  navigator.replace(Route::Robots2 {});
+                }, 
+                "ROBOTS2"
               } 
             }
             li {
