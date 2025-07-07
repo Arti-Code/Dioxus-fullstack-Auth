@@ -4430,8 +4430,8 @@ dependencies = [
 ]
 
 [[package]]
-name = "robots"
-version = "0.3.3"
+name = "robot_center"
+version = "0.3.4"
 dependencies = [
  "anyhow",
  "async-trait",
