@@ -59,9 +59,9 @@ pub enum Route {
     User {},
     #[route("/profile")]
     Profile {},
+    //#[route("/robots")]
+    //Robots {},
     #[route("/robots")]
-    Robots {},
-    #[route("/robots2")]
     Robots2 {},
     #[route("/robots/add")]
     AddRobot {},

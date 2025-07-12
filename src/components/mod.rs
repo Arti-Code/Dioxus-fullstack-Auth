@@ -1,3 +1,4 @@
+mod error_msg;
 pub mod add_robot;
 pub mod style;
 pub mod home;

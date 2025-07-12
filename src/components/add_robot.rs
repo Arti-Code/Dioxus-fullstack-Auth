@@ -46,7 +46,7 @@ pub fn AddRobot() -> Element {
                     button {
                         class: my_style(STYLE_BUTTON_NO_COLOR, "bg-yellow-600 hover:bg-yellow-500"),
                         onclick: move |_| async move {
-                            navigator.push(Route::Robots{});
+                            navigator.push(Route::Robots2{});
                         },
                         "CANCEL"
                     }
@@ -56,7 +56,7 @@ pub fn AddRobot() -> Element {
                             match create_robot(robot_name.read().clone(), active_user.read().0).await {
                                 Ok(_) => {
                                     //robot_name.set(String::from("Robot"));
-                                    navigator.push(Route::Robots{});
+                                    navigator.push(Route::Robots2{});
                                 }
                                 Err(e) => {
                                     error_msg.set(e.to_string().split(":").collect::<Vec<&str>>()[1].to_string());

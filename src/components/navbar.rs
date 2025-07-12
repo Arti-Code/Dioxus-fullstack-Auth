@@ -47,7 +47,7 @@ pub fn Navbar() -> Element {
                 "HOME"
               } 
             }
-            li {
+            /* li {
               class: "flex",
               button { 
                 class: my_style(STYLE_NAV_BTN, "border-lime-400 hover:border-lime-500"), 
@@ -57,7 +57,7 @@ pub fn Navbar() -> Element {
                 }, 
                 "ROBOTS"
               } 
-            }
+            } */
             li {
               class: "flex",
               button { 
@@ -66,7 +66,7 @@ pub fn Navbar() -> Element {
                   //session.write().logout();
                   navigator.replace(Route::Robots2 {});
                 }, 
-                "ROBOTS2"
+                "ROBOTS"
               } 
             }
             li {
