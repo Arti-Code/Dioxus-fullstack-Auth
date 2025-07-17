@@ -4442,7 +4442,7 @@ dependencies = [
 
 [[package]]
 name = "robot_center"
-version = "0.3.6"
+version = "0.3.7"
 dependencies = [
  "anyhow",
  "async-trait",

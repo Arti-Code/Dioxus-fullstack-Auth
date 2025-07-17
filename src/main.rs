@@ -13,7 +13,7 @@ use components::{
     profile::Profile,
     home::Home,
     robots::Robots,
-    robots2::Robots2,
+    robots2::Robots,
     add_robot::AddRobot,
 };
 use crate::components::navbar::Navbar;
